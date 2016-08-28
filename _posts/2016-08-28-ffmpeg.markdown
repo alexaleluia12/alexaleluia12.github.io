@@ -1,0 +1,104 @@
+---
+layout: post
+title:  "ffmpeg"
+date:   2016-08-28 08:19:09 -0300
+categories: meublog
+---
+
+O __ffmpeg__ é uma programa com interface em linha de comando que faz muitas coisas.
+É escrito em C por isso é muito rápido. Pode ser obtido em [ffmpeg](https://ffmpeg.org/download.html).
+O jeito mais fácil de instalar é baixando o compilado estático/static.
+No Linux basta colocar o arquivo executável __ffmpeg__ na basta `bin/`.<br>
+No Windows ponhe o ffmpeg.exe (está dentro de bin/ :D) em alguma pasta que você não vai mexer e adicione o caminho dessa pasta a `path` do sistema.
+
+Depois de instalado o comando `ffmpeg` vai estar disponível no terminal.
+Também é possível usar [libav](https://libav.org/). É com essa biblioteca que o __ffmpeg__ é feito.
+Assim você pode escrever um código mais especifico para o seu problema.
+
+O __ffmpeg__ pode ser usado dentro da sua aplicação independe da linguagem. Basta chamar o comando `ffmpeg` internamente e passar os 
+argumentos corretos. Note que o __ffmpeg__ não precisa estar na `path`, basta que seja passado a _path_ completa de onde está o __ffmpeg__.
+<br>Exemplo: `/home/alex/meusprogramas/ffmpeg argumentos`. Quando for passar argumentos que envolva arquivos eu indico por a _path_ entre ".
+
+Bom, vamos para a parte legal. Usar o __ffmpeg__. :)<br>
+Para isso eu sugiro que você monte um ambiente de teste.<br>
+Crie um diretório com imagens e uma musica mp3. Depois entre nesse diretório com o terminal. (OBS. os mesmos comandos funcionam no Windows)<br>
+
+***
+## tirar pedaço da musica
+Corta os primeiros 57 segundos<br>
+`$ ffmpeg -ss 00:00:57 -t 00:03:00 -i musica1.mp3 -acodec copy nova_musica.mp3`<br>
+Assim também funciona <br>
+`$ ffmpeg -ss 57 -t 00:03:00 -i musica1.mp3 -acodec copy nova_ms.mp3` <br>
+Explicação das entradas<br>
+* -ss posição <br>
+&nbsp;&nbsp;&nbsp;&nbsp; Corta na posição em segundos. O formato "hh:mm:ss\[.xxx\]" também é suportado. 
+* -i nomearquivo <br>
+&nbsp;&nbsp;&nbsp;&nbsp; nome do arquivo de entrada.
+* -t duração <br>
+&nbsp;&nbsp;&nbsp;&nbsp; Duração da musica <br>
+&nbsp;&nbsp;&nbsp;&nbsp; "hh:mm:ss\[.xxx\]" é suportado. <br>
+&nbsp;&nbsp;&nbsp;&nbsp; Essa parte é importante pois é onde podemos cortar a musica a partir do fim. <br>
+&nbsp;&nbsp;&nbsp;&nbsp; Nesse caso você deve passar o tamanho da sua musica caso queira cortar apenas os primerios 57 segundos. <br>
+* -acodec codec <br>
+&nbsp;&nbsp;&nbsp;&nbsp; Especifica o codec da musica, o copy vai copiar o formato da entrada.
+* final <br>
+&nbsp;&nbsp;&nbsp;&nbsp; A ultima parte é a saída do comando.
+
+
+***
+## concatenar duas musicas
+Sendo que s1 vem antes de s2 e o tamanho final é a soma das duas
+
+`$ ffmpeg -i "concat:s1.mp3|s2.mp3" -acodec copy sout.mp3`
+
+
+***
+## converter formato de imagem
+Converte de png para jpg. Pode ser outros formatos também.
+
+`$ ffmpeg -i x.png x.jpg`
+
+
+***
+## converte tamanho de imagem
+Sua imagem x.png tem uma largura X e uma altura Y. E você quer mudar para 400 e 600. <br>
+A nova_img.png vai ter essas dimensões.
+
+`$ ffmpeg -i x.png -vf scale=400:600 nova_img.png`
+
+***
+## criar vídeo
+Criar vídeo com imagens e áudio. <br>
+O nome do vídeo será ssomvideo.mp4. <br>
+Há algumas restrições:
+* todas imagens devem ter o mesmo tamanho.
+* a mesma extensão.
+* apenas uma musica (mp3).
+* as imagens devem estar nomeadas de uma jeito especifico. Ex: a1.png a2.png .... Para todas as imagens. A sequência que aparecerão é a mesma do número.
+
+```sh
+$ ls # ou dir
+a1.png  a2.png  a3.png  sout.mp3
+$ ffmpeg -framerate 1/5 -i a%d.png -i sout.mp3 -c:v libx264 -r 30 -pix_fmt yuv420p -c:a copy -shortest ssomvideo.mp4
+$ ls
+a1.png  a2.png  a3.png  sout.mp3 ssomvideo.mp4
+```
+
+Têm muita coisa para explicar as mais importantes são. <br>
+* -shortest <br>
+&nbsp;&nbsp;&nbsp;&nbsp; Acaba o vídeo quando o tempo das imagens acaba.
+* -r 30 <br>
+&nbsp;&nbsp;&nbsp;&nbsp; Taxa de _frames_ por segundo, 30.
+* -framerate 1/5 <br>
+&nbsp;&nbsp;&nbsp;&nbsp; Cada imagem fica 5 segundo no vídeo.
+* -i a%d.png <br>
+&nbsp;&nbsp;&nbsp;&nbsp; Expressão Regular que representa as imagens de entrada.
+* -i sout.mp3 <br>
+&nbsp;&nbsp;&nbsp;&nbsp; Entrada do áudio.
+
+
+***
+## Mais informações
+[https://trac.ffmpeg.org/wiki/WikiStart](https://trac.ffmpeg.org/wiki/WikiStart)<br>
+[http://linux.die.net/man/1/ffmpeg](http://linux.die.net/man/1/ffmpeg)
+

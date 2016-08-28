@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Alex Aleluia</title>
+    <description>Neste blog compartilho as coisas que aprendi/estou aprendendo. Tudo relacionado a Computação. :D
+</description>
+    <link>http://example.com/</link>
+    <atom:link href="http://example.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 28 Aug 2016 15:26:28 -0300</pubDate>
+    <lastBuildDate>Sun, 28 Aug 2016 15:26:28 -0300</lastBuildDate>
+    <generator>Jekyll v3.2.1</generator>
+    
+      <item>
+        <title>ffmpeg</title>
+        <description>&lt;p&gt;O &lt;strong&gt;ffmpeg&lt;/strong&gt; é uma programa com interface em linha de comando que faz muitas coisas.
+É escrito em C por isso é muito rápido. Pode ser obtido em &lt;a href=&quot;https://ffmpeg.org/download.html&quot;&gt;ffmpeg&lt;/a&gt;.
+O jeito mais fácil de instalar é baixando o compilado estático/static.
+No Linux basta colocar o arquivo executável &lt;strong&gt;ffmpeg&lt;/strong&gt; na basta &lt;code class=&quot;highlighter-rouge&quot;&gt;bin/&lt;/code&gt;.&lt;br /&gt;
+No Windows ponhe o ffmpeg.exe (está dentro de bin/ :D) em alguma pasta que você não vai mexer e adicione o caminho dessa pasta a &lt;code class=&quot;highlighter-rouge&quot;&gt;path&lt;/code&gt; do sistema.&lt;/p&gt;
+
+&lt;p&gt;Depois de instalado o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;ffmpeg&lt;/code&gt; vai estar disponível no terminal.
+Também é possível usar &lt;a href=&quot;https://libav.org/&quot;&gt;libav&lt;/a&gt;. É com essa biblioteca que o &lt;strong&gt;ffmpeg&lt;/strong&gt; é feito.
+Assim você pode escrever um código mais especifico para o seu problema.&lt;/p&gt;
+
+&lt;p&gt;O &lt;strong&gt;ffmpeg&lt;/strong&gt; pode ser usado dentro da sua aplicação independe da linguagem. Basta chamar o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;ffmpeg&lt;/code&gt; internamente e passar os 
+argumentos corretos. Note que o &lt;strong&gt;ffmpeg&lt;/strong&gt; não precisa estar na &lt;code class=&quot;highlighter-rouge&quot;&gt;path&lt;/code&gt;, basta que seja passado a &lt;em&gt;path&lt;/em&gt; completa de onde está o &lt;strong&gt;ffmpeg&lt;/strong&gt;.
+&lt;br /&gt;Exemplo: &lt;code class=&quot;highlighter-rouge&quot;&gt;/home/alex/meusprogramas/ffmpeg argumentos&lt;/code&gt;. Quando for passar argumentos que envolva arquivos eu indico por a &lt;em&gt;path&lt;/em&gt; entre “.&lt;/p&gt;
+
+&lt;p&gt;Bom, vamos para a parte legal. Usar o &lt;strong&gt;ffmpeg&lt;/strong&gt;. :)&lt;br /&gt;
+Para isso eu sugiro que você monte um ambiente de teste.&lt;br /&gt;
+Crie um diretório com imagens e uma musica mp3. Depois entre nesse diretório com o terminal. (OBS. os mesmos comandos funcionam no Windows)&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;tirar-pedao-da-musica&quot;&gt;tirar pedaço da musica&lt;/h2&gt;
+&lt;p&gt;Corta os primeiros 57 segundos&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;$ ffmpeg -ss 00:00:57 -t 00:03:00 -i musica1.mp3 -acodec copy nova_musica.mp3&lt;/code&gt;&lt;br /&gt;
+Assim também funciona &lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;$ ffmpeg -ss 57 -t 00:03:00 -i musica1.mp3 -acodec copy nova_ms.mp3&lt;/code&gt; &lt;br /&gt;
+Explicação das entradas&lt;br /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;-ss posição &lt;br /&gt;
+     Corta na posição em segundos. O formato “hh:mm:ss[.xxx]” também é suportado.&lt;/li&gt;
+  &lt;li&gt;-i nomearquivo &lt;br /&gt;
+     nome do arquivo de entrada.&lt;/li&gt;
+  &lt;li&gt;-t duração &lt;br /&gt;
+     Duração da musica &lt;br /&gt;
+     “hh:mm:ss[.xxx]” é suportado. &lt;br /&gt;
+     Essa parte é importante pois é onde podemos cortar a musica a partir do fim. &lt;br /&gt;
+     Nesse caso você deve passar o tamanho da sua musica caso queira cortar apenas os primerios 57 segundos. &lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;-acodec codec &lt;br /&gt;
+     Especifica o codec da musica, o copy vai copiar o formato da entrada.&lt;/li&gt;
+  &lt;li&gt;final &lt;br /&gt;
+     A ultima parte é a saída do comando.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;concatenar-duas-musicas&quot;&gt;concatenar duas musicas&lt;/h2&gt;
+&lt;p&gt;Sendo que s1 vem antes de s2 e o tamanho final é a soma das duas&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ ffmpeg -i &quot;concat:s1.mp3|s2.mp3&quot; -acodec copy sout.mp3&lt;/code&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;converter-formato-de-imagem&quot;&gt;converter formato de imagem&lt;/h2&gt;
+&lt;p&gt;Converte de png para jpg. Pode ser outros formatos também.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ ffmpeg -i x.png x.jpg&lt;/code&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;converte-tamanho-de-imagem&quot;&gt;converte tamanho de imagem&lt;/h2&gt;
+&lt;p&gt;Sua imagem x.png tem uma largura X e uma altura Y. E você quer mudar para 400 e 600. &lt;br /&gt;
+A nova_img.png vai ter essas dimensões.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ ffmpeg -i x.png -vf scale=400:600 nova_img.png&lt;/code&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;criar-vdeo&quot;&gt;criar vídeo&lt;/h2&gt;
+&lt;p&gt;Criar vídeo com imagens e áudio. &lt;br /&gt;
+O nome do vídeo será ssomvideo.mp4. &lt;br /&gt;
+Há algumas restrições:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;todas imagens devem ter o mesmo tamanho.&lt;/li&gt;
+  &lt;li&gt;a mesma extensão.&lt;/li&gt;
+  &lt;li&gt;apenas uma musica (mp3).&lt;/li&gt;
+  &lt;li&gt;as imagens devem estar nomeadas de uma jeito especifico. Ex: a1.png a2.png …. Para todas as imagens. A sequência que aparecerão é a mesma do número.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;ls &lt;span class=&quot;c&quot;&gt;# ou dir&lt;/span&gt;
+a1.png  a2.png  a3.png  sout.mp3
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;ffmpeg -framerate 1/5 -i a%d.png -i sout.mp3 -c:v libx264 -r 30 -pix_fmt yuv420p -c:a copy -shortest ssomvideo.mp4
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;ls
+a1.png  a2.png  a3.png  sout.mp3 ssomvideo.mp4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Têm muita coisa para explicar as mais importantes são. &lt;br /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;-shortest &lt;br /&gt;
+     Acaba o vídeo quando o tempo das imagens acaba.&lt;/li&gt;
+  &lt;li&gt;-r 30 &lt;br /&gt;
+     Taxa de &lt;em&gt;frames&lt;/em&gt; por segundo, 30.&lt;/li&gt;
+  &lt;li&gt;-framerate 1/5 &lt;br /&gt;
+     Cada imagem fica 5 segundo no vídeo.&lt;/li&gt;
+  &lt;li&gt;-i a%d.png &lt;br /&gt;
+     Expressão Regular que representa as imagens de entrada.&lt;/li&gt;
+  &lt;li&gt;-i sout.mp3 &lt;br /&gt;
+     Entrada do áudio.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;mais-informaes&quot;&gt;Mais informações&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://trac.ffmpeg.org/wiki/WikiStart&quot;&gt;https://trac.ffmpeg.org/wiki/WikiStart&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;http://linux.die.net/man/1/ffmpeg&quot;&gt;http://linux.die.net/man/1/ffmpeg&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 28 Aug 2016 08:19:09 -0300</pubDate>
+        <link>http://example.com/meublog/2016/08/28/ffmpeg.html</link>
+        <guid isPermaLink="true">http://example.com/meublog/2016/08/28/ffmpeg.html</guid>
+        
+        
+        <category>meublog</category>
+        
+      </item>
+    
+  </channel>
+</rss>
