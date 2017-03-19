@@ -4,9 +4,15 @@ title: Sobre
 permalink: /about/
 ---
 
-Sou Alex Aleluia estou no último ano do curso de Ciência da Computação. Sou apaixonado por resolver problemas e criar coisas. Atualmente estou trabalhando no meu TCC (mineração de dados sobre ações de bolsa de valores). Em um editor de video multiplataforma. Scraping para seguir deputados.
+Sou Alex tenho formação em Ciência da Computação.<br>
+Apaixonado por resolver problemas e criar coisas.<br>
+Atualmente trabalho na MMExpres meio período como programador PHP.<br>
 
-Não tenho problema em trabalhar com tecnologias diferentes. Particularmente gosto muito do par Linux/Python.
+Os projetos pessoais que estou trabalhando:<br>
+- geradorstr (90 %)
+- reescrita do meu tcc em c++ e aplicação do mesmo no simulador da filha invest (70 %)
+
+
 
 Links<br>
 [github](https://github.com/alexaleluia12/)<br>
