@@ -6,7 +6,7 @@ categories: meublog
 ---
 
 Conversão de data em formato legivel "YYYY-mm-dd" para uma representação em timestamp.<br>
-Tinha usado boost no começo mas, não funcionava em para algumas datas. Usando as próprias funções do C funcionou sem falhas.
+Tinha usado boost no começo mas, não funcionava para algumas datas. Usando as próprias funções do C funcionou sem falhas.
 
 ```c
 
