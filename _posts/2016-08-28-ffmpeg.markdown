@@ -24,7 +24,7 @@ Para isso eu sugiro que você monte um ambiente de teste.<br>
 Crie um diretório com imagens e uma musica mp3. Depois entre nesse diretório com o terminal. (OBS. os mesmos comandos funcionam no Windows)<br>
 
 ***
-##tirar pedaço da musica
+## tirar pedaço da musica
 Corta os primeiros 57 segundos<br>
 `$ ffmpeg -ss 00:00:57 -t 00:03:00 -i musica1.mp3 -acodec copy nova_musica.mp3`<br>
 Assim também funciona <br>
@@ -46,28 +46,28 @@ Explicação das entradas<br>
 
 
 ***
-##concatenar duas musicas
+## concatenar duas musicas
 Sendo que s1 vem antes de s2 e o tamanho final é a soma das duas
 
 `$ ffmpeg -i "concat:s1.mp3|s2.mp3" -acodec copy sout.mp3`
 
 
 ***
-##converter formato de imagem
+## converter formato de imagem
 Converte de png para jpg. Pode ser outros formatos também.
 
 `$ ffmpeg -i x.png x.jpg`
 
 
 ***
-##converte tamanho de imagem
+## converte tamanho de imagem
 Sua imagem x.png tem uma largura X e uma altura Y. E você quer mudar para 400 e 600. <br>
 A nova_img.png vai ter essas dimensões.
 
 `$ ffmpeg -i x.png -vf scale=400:600 nova_img.png`
 
 ***
-##criar vídeo
+## criar vídeo
 Criar vídeo com imagens e áudio. <br>
 O nome do vídeo será ssomvideo.mp4. <br>
 Há algumas restrições:
@@ -98,7 +98,7 @@ Têm muita coisa para explicar as mais importantes são. <br>
 
 
 ***
-##Mais informações
+## Mais informações
 [https://trac.ffmpeg.org/wiki/WikiStart](https://trac.ffmpeg.org/wiki/WikiStart)<br>
 [http://linux.die.net/man/1/ffmpeg](http://linux.die.net/man/1/ffmpeg)
 
