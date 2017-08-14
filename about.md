@@ -6,11 +6,7 @@ permalink: /about/
 
 Sou Alex tenho formação em Ciência da Computação.<br>
 Apaixonado por resolver problemas e criar coisas.<br>
-Atualmente trabalho na MMExpres meio período como programador PHP.<br>
-
-Os projetos pessoais que estou trabalhando:<br>
-- geradorstr (90 %)
-- reescrita do meu tcc em c++ e aplicação do mesmo no simulador da filha invest (70 %)
+Atualmente trabalho na MMexpress meio período como programador PHP.<br>
 
 
 
