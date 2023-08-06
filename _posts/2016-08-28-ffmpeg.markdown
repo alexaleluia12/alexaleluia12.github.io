@@ -24,57 +24,57 @@ Para isso eu sugiro que você monte um ambiente de teste.<br>
 Crie um diretório com imagens e uma musica mp3. Depois entre nesse diretório com o terminal. (OBS. os mesmos comandos funcionam no Windows)<br>
 
 ***
-##tirar pedaço da musica
+## tirar pedaço da musica
 Corta os primeiros 57 segundos<br>
 `$ ffmpeg -ss 00:00:57 -t 00:03:00 -i musica1.mp3 -acodec copy nova_musica.mp3`<br>
 Assim também funciona <br>
 `$ ffmpeg -ss 57 -t 00:03:00 -i musica1.mp3 -acodec copy nova_ms.mp3` <br>
 Explicação das entradas<br>
-* -ss posição <br>
+*-ss posição <br>
 &nbsp;&nbsp;&nbsp;&nbsp; Corta na posição em segundos. O formato "hh:mm:ss\[.xxx\]" também é suportado. 
-* -i nomearquivo <br>
+*-i nomearquivo <br>
 &nbsp;&nbsp;&nbsp;&nbsp; nome do arquivo de entrada.
-* -t duração <br>
+*-t duração <br>
 &nbsp;&nbsp;&nbsp;&nbsp; Duração da musica <br>
 &nbsp;&nbsp;&nbsp;&nbsp; "hh:mm:ss\[.xxx\]" é suportado. <br>
 &nbsp;&nbsp;&nbsp;&nbsp; Essa parte é importante pois é onde podemos cortar a musica a partir do fim. <br>
 &nbsp;&nbsp;&nbsp;&nbsp; Nesse caso você deve passar o tamanho da sua musica caso queira cortar apenas os primerios 57 segundos. <br>
-* -acodec codec <br>
+*-acodec codec <br>
 &nbsp;&nbsp;&nbsp;&nbsp; Especifica o codec da musica, o copy vai copiar o formato da entrada.
-* final <br>
+*final <br>
 &nbsp;&nbsp;&nbsp;&nbsp; A ultima parte é a saída do comando.
 
 
 ***
-##concatenar duas musicas
+## concatenar duas musicas
 Sendo que s1 vem antes de s2 e o tamanho final é a soma das duas
 
 `$ ffmpeg -i "concat:s1.mp3|s2.mp3" -acodec copy sout.mp3`
 
 
 ***
-##converter formato de imagem
+## converter formato de imagem
 Converte de png para jpg. Pode ser outros formatos também.
 
 `$ ffmpeg -i x.png x.jpg`
 
 
 ***
-##converte tamanho de imagem
+## converte tamanho de imagem
 Sua imagem x.png tem uma largura X e uma altura Y. E você quer mudar para 400 e 600. <br>
 A nova_img.png vai ter essas dimensões.
 
 `$ ffmpeg -i x.png -vf scale=400:600 nova_img.png`
 
 ***
-##criar vídeo
+## criar vídeo
 Criar vídeo com imagens e áudio. <br>
 O nome do vídeo será ssomvideo.mp4. <br>
 Há algumas restrições:
-* todas imagens devem ter o mesmo tamanho.
-* a mesma extensão.
-* apenas uma musica (mp3).
-* as imagens devem estar nomeadas de uma jeito especifico. Ex: a1.png a2.png .... Para todas as imagens. A sequência que aparecerão é a mesma do número.
+*todas imagens devem ter o mesmo tamanho.
+*a mesma extensão.
+*apenas uma musica (mp3).
+*as imagens devem estar nomeadas de uma jeito especifico. Ex: a1.png a2.png .... Para todas as imagens. A sequência que aparecerão é a mesma do número.
 
 ```sh
 $ ls # ou dir
@@ -85,20 +85,20 @@ a1.png  a2.png  a3.png  sout.mp3 ssomvideo.mp4
 ```
 
 Têm muita coisa para explicar as mais importantes são. <br>
-* -shortest <br>
+*-shortest <br>
 &nbsp;&nbsp;&nbsp;&nbsp; Acaba o vídeo quando o tempo das imagens acaba.
-* -r 30 <br>
+*-r 30 <br>
 &nbsp;&nbsp;&nbsp;&nbsp; Taxa de _frames_ por segundo, 30.
-* -framerate 1/5 <br>
+*-framerate 1/5 <br>
 &nbsp;&nbsp;&nbsp;&nbsp; Cada imagem fica 5 segundo no vídeo.
-* -i a%d.png <br>
+*-i a%d.png <br>
 &nbsp;&nbsp;&nbsp;&nbsp; Expressão Regular que representa as imagens de entrada.
-* -i sout.mp3 <br>
+*-i sout.mp3 <br>
 &nbsp;&nbsp;&nbsp;&nbsp; Entrada do áudio.
 
 
 ***
-##Mais informações
+## Mais informações
 [https://trac.ffmpeg.org/wiki/WikiStart](https://trac.ffmpeg.org/wiki/WikiStart)<br>
 [http://linux.die.net/man/1/ffmpeg](http://linux.die.net/man/1/ffmpeg)
 
